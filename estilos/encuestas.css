@@ -1,0 +1,111 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body{
+    font-family: 'Raleway', sans-serif;
+  }
+  header{
+      width: 100%;
+      height: auto;
+      position: relative;
+      overflow: hidden;
+  }
+  
+  .btn{
+      margin: 5px;
+  }
+
+  video{
+      width: 100%;
+  }
+
+  .absolute{
+      width: 100%;
+      height: 100%;
+      top: 0;
+      right: 0;
+      position: absolute;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items:center;
+  }
+
+  h1{
+      font-size: 80px;
+      font-weight: 900;
+      z-index: 100;
+      color:#fff;
+      margin-bottom: 30px;
+  }
+
+  h1::after{
+      display: block;
+      width: 30%;
+      height: 10px;
+      content: "";
+      margin: auto;
+      background: #fff;
+  }
+
+  .overlay{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      background: rgba(0, 0, 0, 0.575);
+  }
+   table.dataTable thead {
+         background-color:#0B525B;
+         color:aliceblue;
+     }        
+     
+     .nav-link{
+        margin-top:9px;
+    }
+    th{
+        text-align: center;
+    }
+    section{
+        left:5vw;
+        position:relative;
+        border:5px solid #000;
+        display:flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        top:10rem;
+        width:90%;
+    }
+    section div{
+        padding:10px;
+        height:300px;
+        width:300px;
+        margin:20px;
+        border:2px solid #ccc;
+        border-radius:5px;
+        display:block;
+    }
+
+section div header{
+    border:1px solid #ccc;
+    display:inline-block;
+}
+section div header h4{
+    position:relative;
+    top:0;
+    display:inline;
+}
+section div header a i{
+    position:relative;
+    text-align: center;
+    top:0;
+    left:50px;
+    font-size:2rem;
+    background:#af5;
+    height:50px;
+    width:100px;
+    box-shadow: 5px 1px #af5;
+    border-radius:5px;
+}
