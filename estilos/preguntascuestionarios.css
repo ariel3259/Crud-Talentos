@@ -69,3 +69,10 @@
       .nav-link{
         margin-top:9px;
     }
+    #flex-conmtnet{
+        display:flex;
+        
+    }
+    #mostrarRespuestas{
+        text-align:center
+    }

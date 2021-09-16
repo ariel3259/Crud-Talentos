@@ -8,6 +8,7 @@ require('dotenv').config({path:'./env/.env'});
 const cuestionarios=require('./routes/cuestionario');
 const preguntas=require('./routes/preguntas');
 const asignarPreguntas=require('./routes/cuestionariosPreguntas');
+const respuestas=require('./routes/respuestas');
 const login=require('./routes/login');
 
 app.use(cors(),express.json(),express.urlencoded({extended:false}));
@@ -38,6 +39,11 @@ app.use('/',login);
 app.use('/api/register/',login);
 app.use('/api/login/',login);
 app.use('/api/loginG',login);
+
+//rutas de respuestas
+app.use('/',respuestas);
+app.use('/api/respuestas/',respuestas);
+
 app.set("port",process.env.PORT || 3000);
 app.listen(app.get("port"),err=>{
     if(err) throw err;

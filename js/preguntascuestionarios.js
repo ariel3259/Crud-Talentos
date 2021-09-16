@@ -5,9 +5,11 @@ $(document).ready(function () {
     let urlPreguntas = 'http://localhost:3000/api/preguntas/mostrarPreguntasHabilitadas/';
     let urlAsignar = 'http://localhost:3000/api/cuestionarios/asignarPregunta/';
     let opcion = null;
+    let respuesta=[];
     const token=sessionStorage.getItem('token');
     let idpreguntas, idcuestionarios;
     document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
+  
 
     //idcuestionario es igual al valor de la llave idcuestionario2 mediante el metodo del objeto sessionStorage, y es convertida a numero mediante la función parseInt
     idcuestionarios =parseInt(sessionStorage.getItem("idcuestionarios"),10);
@@ -23,7 +25,7 @@ $(document).ready(function () {
 //MOSTRAR PREGUNTAS EN EL MODAL DE ASIGNAR PREGUNTAS
     function mostrarPreguntas(){
         tablaPreguntas.clear().draw();
-        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnAsignar'>Asignar al cuestionario</button></div></div>";
+        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-outline-info btn-sm btnAsignar'>Asignar al cuestionario</button></div></div>";
         fetch(urlPreguntas,{
             method:'get',
             mode:'cors',
@@ -40,7 +42,7 @@ $(document).ready(function () {
     //mostrar Preguntas del Cuestionario
     function mostrarCuestionarios(){
         tablaCuestionarios.clear().draw();
-        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-danger btn-sm btnBorrar'>Desasignar</button></div></div>";
+        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-outline-danger btn-sm btnBorrar'>Desasignar</button><button class='btn btn-outline-info btnAnadirRespuesa' data-bs-toggle='modal' data-bs-target='#modalAsignar'>Añadir Respuestas</button><button class='btn btn-outline-info btnVerRespuesa' data-bs-toggle='modal' data-bs-target='#modalVerRespuestas'>Ver Respuestas</button></div></div>";
         fetch(url+idcuestionarios,{
             method:'get',
             mode:'cors',
@@ -54,6 +56,7 @@ $(document).ready(function () {
             }
             mostrarPreguntas();
         mostrarCuestionarios();
+
     //ASIGNAR PREGUNTAS
     $("#btnAsignar").click(function () {
         opcion = 'asignar';
@@ -64,10 +67,38 @@ $(document).ready(function () {
         $(".modal-title").text("Asignar Pregunta");
         $('#modalCRUD2').modal('show');  
     });
+
+    document.getElementById('anidarRespuesta').onclick=()=>{
+        let i=1;
+        document.getElementById("mostrarRespuesta").innerHTML='';
+        respuesta.push(document.getElementById('respuesta').value);
+        respuesta.map(element=>{
+            
+            document.getElementById("mostrarRespuesta").innerHTML+=`${i}-${element} <br>`
+            i++
+        })
+    }
+  document.getElementById('btnGuardarRespuesta').onclick=()=>{
+      fetch('http://localhost:3000/api/respuestas',{
+          method:'post',
+          mode:'cors',
+          headers:{
+            'Content-Type':'application/json',
+            'authorization':token
+          },
+          body:JSON.stringify({respuesta:respuesta,idpreguntas:parseInt($(this).closest("tr").find('td:eq(0)').text(),10),idcuestionarios:parseInt(sessionStorage.getItem("idcuestionarios"),10)})
+      })
+      .then(response=>Swal.fire({title:'Respuestas guardadas',
+      icon:'success',
+      text:'',
+      showConfirmButton:false,
+      timer:1500}))
+      .catch(err=>console.log(`ocurrio un error en: ${err}`))
+  }
+
     $(document).on('click','.btnAsignar',function(){
         fila = $(this).closest("tr");  
-        idpreguntas = parseInt(fila.find('td:eq(0)').text()); 
-            
+        idpreguntas = parseInt(fila.find('td:eq(0)').text());  
         //asignamos la pregunta a x cuestionario
         if (opcion == 'asignar') {
             fetch(urlAsignar+idpreguntas,{

@@ -9,16 +9,14 @@
         //mostramos el nombre del usuario
             document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
         //MOSTRAR
-       let tablaCuestionarios=$('#tablaCuestionarios').DataTable({
-        'language':{
-            "url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"
-        }
-       });
+       let tablaCuestionarios=$('#tablaCuestionarios').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
     
+            //La funcion mostrar limpia la tabla cuestionarios y  la llena con los cuestionarios guardados en la base de datos 
        function mostrar(){
            tablaCuestionarios.clear().draw();
-           let defaultContent="<div class='text-center'> <div class='btn-group'> <a href='preguntascuestionario.html'><button  class='btn btn-secondary btn-sm btnVer'>Ver</button></a> <button class='btns btn btn-info btn-sm btnEditar'>Editar</button> <button class='btn btn-danger btn-sm btnBorrar'>Borrar</button><button class='btn btn-info btn-sm btnClonar'>Clonar</button> </div></div>";
-        fetch(url,{
+           //defaultContent son los botones que se existen en  el campo de acciones
+           let defaultContent="<div class='text-center'> <div class='btn-group'> <a href='preguntascuestionario.html'><button  class='btn btn-outline-secondary btn-sm btnVer'>Ver</button></a> <button class='btns btn btn-outline-info btn-sm btnEditar'>Editar</button> <button class='btn btn-outline-danger btn-sm btnBorrar'>Borrar</button><button class='btn btn-outline-info btn-sm btnClonar'>Clonar</button><button type='button' class='btn btn-outline-info'><a href='./encuestas.html'>Ver encuestas</a></button> </div></div>";
+           fetch(url,{
             method:"get",
             mode:'cors',
             headers:{
