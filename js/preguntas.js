@@ -12,7 +12,7 @@
      
         function mostrar(){
             tablaPreguntas.clear().draw();
-            let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'>Editar</button><button class='btn btn-info btn-sm btnRespuestas'>Ver Respuestas</button><button class='btn btn-danger btn-sm btnBorrar'>Borrar</button></div></div>";
+            let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'>Editar</button><button class='btn btn-danger btn-sm btnBorrar'>Borrar</button></div></div>";
             fetch(url,{
                 mehtod:'get',
                 mode:'cors',

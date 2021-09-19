@@ -5,7 +5,7 @@
         let opcion = null;
         //campos de la api
         const token=sessionStorage.getItem('token');
-        let id, fecha,usuario,descripcion;  
+        let id,usuario,descripcion;  
         //mostramos el nombre del usuario
             document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
         //MOSTRAR
@@ -15,7 +15,8 @@
        function mostrar(){
            tablaCuestionarios.clear().draw();
            //defaultContent son los botones que se existen en  el campo de acciones
-           let defaultContent="<div class='text-center'> <div class='btn-group'> <a href='preguntascuestionario.html'><button  class='btn btn-outline-secondary btn-sm btnVer'>Ver</button></a> <button class='btns btn btn-outline-info btn-sm btnEditar'>Editar</button> <button class='btn btn-outline-danger btn-sm btnBorrar'>Borrar</button><button class='btn btn-outline-info btn-sm btnClonar'>Clonar</button><button type='button' class='btn btn-outline-info'><a href='./encuestas.html'>Ver encuestas</a></button> </div></div>";
+           let defaultContent="<div class='text-center'> <div class='btn-group'> <button  class='btn btn-outline-primary  btnVer'>Ver</button> <button class='btn btn-outline-info btn-sm btnEditar'>Editar</button> <button class='btn btn-outline-danger btnBorrar'>Borrar</button><button class='btn btn-outline-info  btnClonar'>Clonar</button><button type='button' class='btn btn-outline-info btnEncuestas'>Encuestas</button><button type='buton' class='btn btn-outline-info btnEncuestasRespondidas'>Encuestas Respondidas</div></div>";
+           let content="<div class='text-center'> <div class='btn-group'> <button class='btn btn-outline-info  btnClonar'>Clonar</button></div></div>";
            fetch(url,{
             method:"get",
             mode:'cors',
@@ -25,7 +26,7 @@
             }
         })
         .then(response=>response.json())
-        .then(res=>res.map(element=>tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,defaultContent]).draw()))
+        .then(res=>res.map(element=>sessionStorage.getItem("usuarioCreador")===element.usuarioCreador?tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,defaultContent]).draw():tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,content]).draw()))
         .catch(err=>console.log(err));
     }
     mostrar();
@@ -74,8 +75,34 @@
                 sessionStorage.setItem("idcuestionario",cuestionario_);
             let titulo_cuestionario=fila2.find('td:eq(3)').text();
             sessionStorage.setItem("titulo",titulo_cuestionario);
+            window.location.replace('./preguntascuestionario.html');
         });
     
+        //ENCUESTAS
+        $(document).on('click','.btnEncuestas',function(){
+            let fila2=$(this).closest("tr");
+            //cuestionario almacena idcuestionario y lo guardamos con un metodo del objeto sessionStorage
+              let cuestionario_=parseInt(fila2.find('td:eq(0)').text());
+                  console.log(cuestionario_);
+              //enviamos la variable id2, que almacena el id de un cuestionario a una   llave  con el metodo del objeto sessionStorage
+                  sessionStorage.setItem("idcuestionario",cuestionario_);
+              let titulo_cuestionario=fila2.find('td:eq(3)').text();
+              sessionStorage.setItem("titulo",titulo_cuestionario);
+            window.location.replace('./encuestas.html');
+        });
+
+        //ENCUESTAS RESPONDIDAS
+        $(document).on('click','.btnEncuestasRespondidas',function(){
+            let fila2=$(this).closest("tr");
+            //cuestionario almacena idcuestionario y lo guardamos con un metodo del objeto sessionStorage
+              let cuestionario_=parseInt(fila2.find('td:eq(0)').text());
+                  console.log(cuestionario_);
+              //enviamos la variable id2, que almacena el id de un cuestionario a una   llave  con el metodo del objeto sessionStorage
+                  sessionStorage.setItem("idcuestionario",cuestionario_);
+              let titulo_cuestionario=fila2.find('td:eq(3)').text();
+              sessionStorage.setItem("titulo",titulo_cuestionario);
+            window.location.replace('./encuestasRespondidas.html');
+        })
         //CLONAR
         $(document).on("click",".btnClonar",function(e){
             e.preventDefault();

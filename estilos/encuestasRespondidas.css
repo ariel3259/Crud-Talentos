@@ -1,0 +1,13 @@
+div table thead tr th{
+    background:#54c !important;
+    color:white;
+    transition:all 1.2s;
+}
+div table thead tr th:hover{
+background-color:#54A!important;
+color:white;
+}
+h1{
+    position:relative;
+    left:40vw;
+}

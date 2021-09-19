@@ -3,7 +3,7 @@ $(document).ready(function(){
     let destinatarios=[];
 
     let tablaEncuestas=$('#tablaEncuestas').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
-
+    document.getElementById('user').innerHTML=sessionStorage.getItem('usuarioCreador');
 
     //Este evento agrega un destinatario al arreglo destinatario
     document.getElementById('agregarDestinatario').onclick=()=>{

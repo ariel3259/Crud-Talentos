@@ -43,9 +43,11 @@ app.use('/api/loginG',login);
 //rutas de respuestas
 app.use('/',respuestas);
 app.use('/api/respuestas/',respuestas);
-
 app.set("port",process.env.PORT || 3000);
+
+
 app.listen(app.get("port"),err=>{
     if(err) throw err;
-    console.log (`Funciona en el puerto:${process.env.PORT}`);
+    console.log (`Funciona en el puerto:${process.env.PORT||3000}`);
+    
 });
