@@ -46,7 +46,7 @@ router.post('/api/respuestas/', verificacion, (req, res) => {
             if (!idrespuesta) {
                 idrespuesta = 1;
             }
-            con.query('insert into respuestas set ?',{idrespuesta,respuesta:element},(err)=>{
+            con.query('insert into respuestas set ?',{idrespuesta,respuestas:element},(err)=>{
                 if(err)throw err;
                 con.query('insert into preguntasrespuestas set ?',{idcuestionarios:req.body.idcuestionarios,idpreguntas:req.body.idpreguntas,idrespuesta:idrespuesta},(err)=>{
                     if(err)throw err;

@@ -8,6 +8,7 @@ $(document).ready(function () {
     let respuesta=[];
     const token=sessionStorage.getItem('token');
     let idpreguntas, idcuestionarios;
+    let modalAsignar = new bootstrap.Modal(document.getElementById('modalAsignar'))
     document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
   
 
@@ -26,23 +27,34 @@ $(document).ready(function () {
     function mostrarPreguntas(){
         tablaPreguntas.clear().draw();
         let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-outline-info btn-sm btnAsignar'>Asignar al cuestionario</button></div></div>";
-        fetch(urlPreguntas,{
-            method:'get',
-            mode:'cors',
-            headers:{
-                'Content-Type':'application/json',
-                'authorization':token,
-                'idcuestionarios':idcuestionarios,
-                'estado':estado
-            }
-        }).then(response=>response.json())
-        .then(res=>res.map(element=>tablaPreguntas.row.add([element.idpreguntas,element.descripcion,element.categoria,defaultContent]).draw()))
-        .catch(err=>console.error(err))
+        if(token!="null"){
+            fetch(urlPreguntas,{
+                method:'get',
+                mode:'cors',
+                headers:{
+                    'Content-Type':'application/json',
+                    'authorization':token,
+                    'idcuestionarios':idcuestionarios,
+                    'estado':estado
+                }
+            }).then(response=>response.json())
+            .then(res=>res.map(element=>tablaPreguntas.row.add([element.idpreguntas,element.descripcion,element.categoria,defaultContent]).draw()))
+            .catch(err=>console.error(err))
+        }else{
+            Swal.fire({icon:'error',title:'Inicie sesion primero',showConfirmButton:false,timer:1200}).then(()=>{
+                  //el usuario se elimina
+                  sessionStorage.setItem('usuario',null);
+                  //el token se elimina
+                  sessionStorage.setItem('token',null);
+                window.location.replace('http://localhost:3000/')
+            })
+        }
+        
     }
     //mostrar Preguntas del Cuestionario
     function mostrarCuestionarios(){
         tablaCuestionarios.clear().draw();
-        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-outline-danger btn-sm btnBorrar'>Desasignar</button><button class='btn btn-outline-info btnAnadirRespuesa' data-bs-toggle='modal' data-bs-target='#modalAsignar'>Añadir Respuestas</button><button class='btn btn-outline-info btnVerRespuesa' data-bs-toggle='modal' data-bs-target='#modalVerRespuestas'>Ver Respuestas</button></div></div>";
+        let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-outline-danger btn-sm btnBorrar'>Desasignar</button><button class='btn btn-outline-info btnAnadirRespuesa' >Añadir Respuestas</button><button class='btn btn-outline-info btnVerRespuesa' data-bs-toggle='modal' data-bs-target='#modalVerRespuestas'>Ver Respuestas</button></div></div>";
         fetch(url+idcuestionarios,{
             method:'get',
             mode:'cors',
@@ -57,8 +69,22 @@ $(document).ready(function () {
             mostrarPreguntas();
         mostrarCuestionarios();
 
+     //asignar respuestas a una pregunta del cuestionario
+     $(document).on('click','.btnAnadirRespuesa',function(e){
+        let fila=e.target.parentNode.parentNode.parentNode.parentNode;
+        idpreguntas=parseInt(fila.children[0].innerHTML,10);
+        document.getElementById("mostrarRespuesta").innerHTML='';
+        document.getElementById('respuesta').value='';
+        $(".modal-header").css("background-color", "#23272b");
+        $(".modal-header").css("color", "white");
+        $(".modal-title").text("Asignar Pregunta");
+        $('#modalAsignar').modal('show');  
+   
+     })   
+
     //ASIGNAR PREGUNTAS
     $("#btnAsignar").click(function () {
+       
         opcion = 'asignar';
         idpreguntas = null;
         $("#formCuestionario").trigger("reset");
@@ -71,14 +97,20 @@ $(document).ready(function () {
     document.getElementById('anidarRespuesta').onclick=()=>{
         let i=1;
         document.getElementById("mostrarRespuesta").innerHTML='';
-        respuesta.push(document.getElementById('respuesta').value);
-        respuesta.map(element=>{
-            
-            document.getElementById("mostrarRespuesta").innerHTML+=`${i}-${element} <br>`
-            i++
+        if(document.getElementById('respuesta').value){
+            respuesta.push(document.getElementById('respuesta').value)
+            respuesta.map(element=>{
+                document.getElementById("mostrarRespuesta").innerHTML+=`${i}-${element} <br>`
+                i++    
         })
+        }else{
+            alert("Ingrese un elemento");
+        }
+        
+     
     }
   document.getElementById('btnGuardarRespuesta').onclick=()=>{
+      
       fetch('http://localhost:3000/api/respuestas',{
           method:'post',
           mode:'cors',
@@ -86,7 +118,7 @@ $(document).ready(function () {
             'Content-Type':'application/json',
             'authorization':token
           },
-          body:JSON.stringify({respuesta:respuesta,idpreguntas:parseInt($(this).closest("tr").find('td:eq(0)').text(),10),idcuestionarios:parseInt(sessionStorage.getItem("idcuestionarios"),10)})
+          body:JSON.stringify({respuesta:respuesta,idpreguntas:idpreguntas,idcuestionarios:parseInt(sessionStorage.getItem("idcuestionarios"),10)})
       })
       .then(response=>Swal.fire({title:'Respuestas guardadas',
       icon:'success',
@@ -94,6 +126,7 @@ $(document).ready(function () {
       showConfirmButton:false,
       timer:1500}))
       .catch(err=>console.log(`ocurrio un error en: ${err}`))
+      $('#modalAsignar').hide();
   }
 
     $(document).on('click','.btnAsignar',function(){

@@ -11,7 +11,7 @@ const asignarPreguntas=require('./routes/cuestionariosPreguntas');
 const respuestas=require('./routes/respuestas');
 const login=require('./routes/login');
 
-app.use(cors(),express.json(),express.urlencoded({extended:false}));
+app.use(cors(),express.json(),express.urlencoded({extended:false}),express.static(__dirname+"/public/"));
 
 //peticiones de cuestionario
 app.use('/',cuestionarios);

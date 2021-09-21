@@ -4,8 +4,7 @@ const con=require('../conection/connection');
 const jwt=require('jsonwebtoken');
 require('dotenv').config({path:'../env/.env'});
 const router=Router();
-const express=require('express');
-
+const key=require('../key/key');
 router.get('/',(req,res)=>res.send('Pagina principal'));
 
 //REGISTER
@@ -83,7 +82,7 @@ router.post('/api/login/',async (req,res)=>{
                 user:user,
                 idUser:result[0].idUser,
                 success:true,
-                token:jwt.sign({check:true},process.env.KEY,{expiresIn:'30m'})
+                token:jwt.sign({check:true},key,{expiresIn:'30m'})
             };
             res.send(data);
         }
@@ -105,7 +104,7 @@ router.post('/api/loginG',(req,res)=>{
                     user:result[0].user,
                     idUser:result[0].idUser,
                     success:true,
-                    token:jwt.sign({check:true},process.env.KEY,{expiresIn:'30m'})
+                    token:jwt.sign({check:true},key,{expiresIn:'30m'})
                 };
    
                 res.send(datas);}
@@ -135,7 +134,7 @@ router.post('/api/loginG',(req,res)=>{
                       user:data.user,
                       idUser:data.idUser,
                       success:true,
-                      token:jwt.sign({check:true},process.env.KEY,{expiresIn:'30m'})
+                      token:jwt.sign({check:true},key,{expiresIn:'30m'})
                   };
                   res.send(datas);     
                   console.log()

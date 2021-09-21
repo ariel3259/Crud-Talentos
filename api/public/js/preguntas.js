@@ -13,6 +13,7 @@
         function mostrar(){
             tablaPreguntas.clear().draw();
             let defaultContent="<div class='text-center'><div class='btn-group'><button class='btn btn-info btn-sm btnEditar'>Editar</button><button class='btn btn-danger btn-sm btnBorrar'>Borrar</button></div></div>";
+          if(token!="null"){
             fetch(url,{
                 mehtod:'get',
                 mode:'cors',
@@ -24,6 +25,11 @@
             .then(response=>response.json())
             .then(res=>res.map(element=>tablaPreguntas.row.add([element.idpreguntas,element.descripcion,element.estado,element.categoria,defaultContent]).draw()))
             .catch()
+          }
+          else{
+            Swal.fire({icon:'error',title:'Inicie sesion primero',showConfirmButton:false,timer:1200}).then(()=>window.location.replace('http://localhost:3000/'));
+          }
+        
         }
       mostrar();
         //CREAR

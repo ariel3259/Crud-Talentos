@@ -17,17 +17,26 @@
            //defaultContent son los botones que se existen en  el campo de acciones
            let defaultContent="<div class='text-center'> <div class='btn-group'> <button  class='btn btn-outline-primary  btnVer'>Ver</button> <button class='btn btn-outline-info btn-sm btnEditar'>Editar</button> <button class='btn btn-outline-danger btnBorrar'>Borrar</button><button class='btn btn-outline-info  btnClonar'>Clonar</button><button type='button' class='btn btn-outline-info btnEncuestas'>Encuestas</button><button type='buton' class='btn btn-outline-info btnEncuestasRespondidas'>Encuestas Respondidas</div></div>";
            let content="<div class='text-center'> <div class='btn-group'> <button class='btn btn-outline-info  btnClonar'>Clonar</button></div></div>";
-           fetch(url,{
-            method:"get",
-            mode:'cors',
-            headers:{
-                'Content-Type':'application/json',
-                'authorization':token
-            }
-        })
-        .then(response=>response.json())
-        .then(res=>res.map(element=>sessionStorage.getItem("usuarioCreador")===element.usuarioCreador?tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,defaultContent]).draw():tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,content]).draw()))
-        .catch(err=>console.log(err));
+           if(token!="null"){
+            fetch(url,{
+                method:"get",
+                mode:'cors',
+                headers:{
+                    'Content-Type':'application/json',
+                    'authorization':token
+                }
+            })
+            .then(response=>response.json())
+            .then(res=>res.map(element=>sessionStorage.getItem("usuarioCreador")===element.usuarioCreador?tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,defaultContent]).draw():tablaCuestionarios.row.add([element.idcuestionarios,element.fechaCreacion,element.usuarioCreador,element.descripcion,element.estado,content]).draw()))
+            .catch(err=>console.log(err));
+           }else{
+            Swal.fire({icon:'error',title:'Inicie sesion primero',showConfirmButton:false,timer:1200}).then(()=>{
+                  //el usuario se elimina
+                  sessionStorage.setItem('usuario',null);
+                  //el token se elimina
+                  sessionStorage.setItem('token',null);
+                window.location.replace('http://localhost:3000/')})
+           }  
     }
     mostrar();
 
@@ -75,7 +84,7 @@
                 sessionStorage.setItem("idcuestionario",cuestionario_);
             let titulo_cuestionario=fila2.find('td:eq(3)').text();
             sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('./preguntascuestionario.html');
+            window.location.replace('http://localhost:3000/html/preguntascuestionario.html');
         });
     
         //ENCUESTAS
@@ -88,7 +97,7 @@
                   sessionStorage.setItem("idcuestionario",cuestionario_);
               let titulo_cuestionario=fila2.find('td:eq(3)').text();
               sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('./encuestas.html');
+            window.location.replace('http://localhost:3000/html/encuestas.html');
         });
 
         //ENCUESTAS RESPONDIDAS
@@ -101,7 +110,7 @@
                   sessionStorage.setItem("idcuestionario",cuestionario_);
               let titulo_cuestionario=fila2.find('td:eq(3)').text();
               sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('./encuestasRespondidas.html');
+            window.location.replace('http://localhost:3000/html/encuestasRespondidas.html');
         })
         //CLONAR
         $(document).on("click",".btnClonar",function(e){

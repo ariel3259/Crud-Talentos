@@ -28,15 +28,18 @@
     #login {
       margin-top: 40px;
     }
-    #botones{
-      display:inline-block;
+ 
+    #botones {
+      display:flex;
+      flex-direction: column;
+      margin:5px 5px !important;
     }
-    #botones #registrarse{
+    #btnIniciar{
       position:relative;
-      top:-10px;
+      left:10vw;
     }
   </style>
-  <link rel="shortcut icon" type="image/png" href="html/favicon.png"/>
+  <link rel="shortcut icon" type="image/png" href="http://localhost:3000/html/favicon.png"/>
 </head>
 
 <body>
@@ -52,11 +55,12 @@
               <form id="send">
                 <input type="text" id="user" placeholder="Usuario" required>
                 <input type="password" id="password" placeholder="Contraseña" required>
-                <input type="submit" value="Iniciar Seccion">
+                <input type="submit" id="btnIniciar" value="Iniciar Seccion">
             </form>
-              <div class="form-group text-center" id="botones">
-                <button id="login" class="btn btn-primary fab fa-google"> Iniciar sesion con Google</button>
-                <a  class="btn btn-primary" href="./html/register.html">Registrarse</a>
+              <div class="btn-group" id="botones">
+                <button id="login" class="btn btn-sm btn-primary btn-circle fab fa-google"> Iniciar sesion con Google</button>
+                <div></div>
+                <button class="btn btn-success btn-sm btn-circle" href="http://localhost:3000/html/register.html">Registrarse</button>
               </div>
             
           </div>
@@ -80,8 +84,8 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-  <script src="../js/login.js"></script>
-  <script src="../js/cache.js"></script>
+  <script src="http://localhost:3000/js/login.js"></script>
+  <script src="http://localhost:3000/js/cache.js"></script>
 </body>
 
 </html>
