@@ -5,6 +5,6 @@ PASOS:
 ###
 2)importar la base de datos
 ###
-3)Encender el servidor(node app)
+3)Encender el servidor(nodemon app)
 ###
 4)entrar a http://localhost:3000/
