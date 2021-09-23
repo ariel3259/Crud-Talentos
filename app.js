@@ -23,7 +23,6 @@ app.use('/',asignarPreguntas);
 app.use('/',login);
 app.use('/',respuestas);
 
-
 https.createServer({key:fs.readFileSync('./ssl/server.key'),cert:fs.readFileSync('./ssl/server.cer')},app).listen(port||3000,err=>{
     if(err) throw err;
     console.log (`Funciona en el puerto:${port||3000}`);
