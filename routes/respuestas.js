@@ -1,7 +1,7 @@
 const {Router}=require('express');
 const router=Router();
-const con=require('../conection/connection');
-require('dotenv').config({path:'../env/.env'});
+const con=require('../db/connection');
+const {key}=require('../key/key');
 const jwt=require('jsonwebtoken');
 const verificacion=Router();
 
@@ -23,7 +23,7 @@ verificacion.use((req,res,next)=>{
                 console.log(token);
         }
         if(token){
-            jwt.verify(token,process.env.KEY,(err,decoded)=>{
+            jwt.verify(token,key,(err,decoded)=>{
                 if(err){
                     return res.json({
                         message:'El token no es valido'
@@ -42,12 +42,13 @@ router.post('/api/respuestas/', verificacion, (req, res) => {
 
     req.body.respuesta.map(element => {
         con.query('select max(idrespuesta)+1 as idrespuesta from respuestas', (err, id) => {
+            if(err)console.log(err);
             let idrespuesta = id[0].idrespuesta;
             if (!idrespuesta) {
                 idrespuesta = 1;
             }
             con.query('insert into respuestas set ?',{idrespuesta,respuestas:element},(err)=>{
-                if(err)throw err;
+                if(err)console.log(err);
                 con.query('insert into preguntasrespuestas set ?',{idcuestionarios:req.body.idcuestionarios,idpreguntas:req.body.idpreguntas,idrespuesta:idrespuesta},(err)=>{
                     if(err)throw err;
                 

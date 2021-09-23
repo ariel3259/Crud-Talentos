@@ -1,10 +1,9 @@
 const {Router}= require('express');
 const bcryptjs=require('bcryptjs');
-const con=require('../conection/connection');
+const con=require('../db/connection');
 const jwt=require('jsonwebtoken');
-require('dotenv').config({path:'../env/.env'});
 const router=Router();
-const key=require('../key/key');
+const {key}=require('../key/key');
 router.get('/',(req,res)=>res.send('Pagina principal'));
 
 //REGISTER

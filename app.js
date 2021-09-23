@@ -1,9 +1,12 @@
-
+//declaro los modulos
 const express= require('express');
 const cors=require('cors');
+const fs=require('fs');
+const https=require('https');
+//invoco a express
 const app= express();
-//invocamos a dotenv
-require('dotenv').config({path:'./env/.env'});
+//invoco al puerto
+const {port}=require('./key/key');
 //invoco a los archivos que contienen las rutas para las peticiones 
 const cuestionarios=require('./routes/cuestionario');
 const preguntas=require('./routes/preguntas');
@@ -43,11 +46,9 @@ app.use('/api/loginG',login);
 //rutas de respuestas
 app.use('/',respuestas);
 app.use('/api/respuestas/',respuestas);
-app.set("port",process.env.PORT || 3000);
 
 
-app.listen(app.get("port"),err=>{
+https.createServer({key:fs.readFileSync('./ssl/server.key'),cert:fs.readFileSync('./ssl/server.cer')},app).listen(port||3000,err=>{
     if(err) throw err;
-    console.log (`Funciona en el puerto:${process.env.PORT||3000}`);
-    
+    console.log (`Funciona en el puerto:${port||3000}`);
 });

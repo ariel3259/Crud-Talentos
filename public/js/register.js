@@ -9,7 +9,7 @@ if(formRegister){
             fullName:document.getElementById('fullName').value,
             rol:document.getElementById('rol').value
         }
-        fetch('http://localhost:3000/api/register',{
+        fetch('https://localhost:3000/api/register',{
             method:'Post',
             mode:'cors',
             headers:{
@@ -21,7 +21,7 @@ if(formRegister){
         .then(datas=>{
            if(datas.success){
             Swal.fire({icon:datas.icon,title:datas.title,text:datas.text,showConfirmButton:datas.showConfirmButton,timer:datas.timer})
-             .then(event=>window.location.replace('http://localhost:3000/html/index.html'))
+             .then(event=>window.location.replace('https://localhost:3000/html/index.html'))
            } 
            else{
             Swal.fire({icon:datas.icon,title:datas.title,text:datas.text,showConfirmButton:datas.showConfirmButton,timer:datas.timer});

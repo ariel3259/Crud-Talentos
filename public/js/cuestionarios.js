@@ -1,7 +1,7 @@
 
     $(document).ready(function() {   
         //url de la api
-        let url = 'http://localhost:3000/api/cuestionarios/';
+        let url = 'https://localhost:3000/api/cuestionarios/';
         let opcion = null;
         //campos de la api
         const token=sessionStorage.getItem('token');
@@ -9,7 +9,7 @@
         //mostramos el nombre del usuario
             document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
         //MOSTRAR
-       let tablaCuestionarios=$('#tablaCuestionarios').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
+       let tablaCuestionarios=$('#tablaCuestionarios').DataTable({'language':{"url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
     
             //La funcion mostrar limpia la tabla cuestionarios y  la llena con los cuestionarios guardados en la base de datos 
        function mostrar(){
@@ -35,7 +35,7 @@
                   sessionStorage.setItem('usuario',null);
                   //el token se elimina
                   sessionStorage.setItem('token',null);
-                window.location.replace('http://localhost:3000/')})
+                window.location.replace('https://localhost:3000/')})
            }  
     }
     mostrar();
@@ -84,7 +84,7 @@
                 sessionStorage.setItem("idcuestionario",cuestionario_);
             let titulo_cuestionario=fila2.find('td:eq(3)').text();
             sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('http://localhost:3000/html/preguntascuestionario.html');
+            window.location.replace('https://localhost:3000/html/preguntascuestionario.html');
         });
     
         //ENCUESTAS
@@ -97,7 +97,7 @@
                   sessionStorage.setItem("idcuestionario",cuestionario_);
               let titulo_cuestionario=fila2.find('td:eq(3)').text();
               sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('http://localhost:3000/html/encuestas.html');
+            window.location.replace('https://localhost:3000/html/encuestas.html');
         });
 
         //ENCUESTAS RESPONDIDAS
@@ -110,7 +110,7 @@
                   sessionStorage.setItem("idcuestionario",cuestionario_);
               let titulo_cuestionario=fila2.find('td:eq(3)').text();
               sessionStorage.setItem("titulo",titulo_cuestionario);
-            window.location.replace('http://localhost:3000/html/encuestasRespondidas.html');
+            window.location.replace('https://localhost:3000/html/encuestasRespondidas.html');
         })
         //CLONAR
         $(document).on("click",".btnClonar",function(e){

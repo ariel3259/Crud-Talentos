@@ -36,7 +36,7 @@
     }
     #btnIniciar{
       position:relative;
-      left:10vw;
+      left:7.5vw;
     }
   </style>
   <link rel="shortcut icon" type="image/png" href="http://localhost:3000/html/favicon.png"/>
@@ -54,13 +54,13 @@
               <h1 id="form-text" class="text-center display-4">Iniciar sesion</h1>
               <form id="send">
                 <input type="text" id="user" placeholder="Usuario" required>
-                <input type="password" id="password" placeholder="Contraseña" required>
+                <input type="password" id="password" placeholder="Contraseña" required><br>
                 <input type="submit" id="btnIniciar" value="Iniciar Seccion">
             </form>
               <div class="btn-group" id="botones">
                 <button id="login" class="btn btn-sm btn-primary btn-circle fab fa-google"> Iniciar sesion con Google</button>
                 <div></div>
-                <button class="btn btn-success btn-sm btn-circle" href="http://localhost:3000/html/register.html">Registrarse</button>
+                <button class="btn btn-success btn-sm btn-circle" href="https://localhost:3000/html/register.html">Registrarse</button>
               </div>
             
           </div>
@@ -68,7 +68,7 @@
       </div>
     </div>
   </div>
-  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
   <script>
@@ -84,8 +84,8 @@
     // Initialize Firebase
     firebase.initializeApp(firebaseConfig);
   </script>
-  <script src="http://localhost:3000/js/login.js"></script>
-  <script src="http://localhost:3000/js/cache.js"></script>
+  <script src="https://localhost:3000/js/login.js"></script>
+  <script src="https://localhost:3000/js/cache.js"></script>
 </body>
 
 </html>

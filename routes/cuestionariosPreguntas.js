@@ -1,9 +1,9 @@
 const express=require('express');
-const con=require('../conection/connection');
+const con=require('../db/connection');
 const router = express.Router();
-require('dotenv').config({path:'../env/.env'});
 const jwt=require('jsonwebtoken');
 const verificacion=express.Router();
+const {key}=require('../key/key')
 
 
 verificacion.use((req,res,next)=>{
@@ -20,7 +20,7 @@ verificacion.use((req,res,next)=>{
                 console.log(token);
         }
         if(token){
-            jwt.verify(token,process.env.KEY,(err,decoded)=>{
+            jwt.verify(token,key,(err,decoded)=>{
                 if(err){
                     return res.json({
                         message:'El token no es valido'

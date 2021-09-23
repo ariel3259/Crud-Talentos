@@ -2,13 +2,13 @@
 
 //while(sessionStorage.getItem('usuario')!=null){
     $(document).ready(function () {
-        let url = 'http://localhost:3000/api/preguntas/';
+        let url = 'https://localhost:3000/api/preguntas/';
         let opcion = null;
         const token=sessionStorage.getItem('token');
         let idpreguntas, descripcion,estado,categoria;
         document.getElementById("mostrarNombre").innerHTML+=sessionStorage.getItem("usuarioCreador");
         //MOSTRAR
-        let tablaPreguntas=$('#tablaPreguntas').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
+        let tablaPreguntas=$('#tablaPreguntas').DataTable({'language':{"url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
      
         function mostrar(){
             tablaPreguntas.clear().draw();
@@ -27,7 +27,7 @@
             .catch()
           }
           else{
-            Swal.fire({icon:'error',title:'Inicie sesion primero',showConfirmButton:false,timer:1200}).then(()=>window.location.replace('http://localhost:3000/'));
+            Swal.fire({icon:'error',title:'Inicie sesion primero',showConfirmButton:false,timer:1200}).then(()=>window.location.replace('https://localhost:3000/'));
           }
         
         }

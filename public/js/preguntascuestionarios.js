@@ -1,9 +1,9 @@
 
 
 $(document).ready(function () {
-    let url = 'http://localhost:3000/api/cuestionarios/preguntas/';
-    let urlPreguntas = 'http://localhost:3000/api/preguntas/mostrarPreguntasHabilitadas/';
-    let urlAsignar = 'http://localhost:3000/api/cuestionarios/asignarPregunta/';
+    let url = 'https://localhost:3000/api/cuestionarios/preguntas/';
+    let urlPreguntas = 'https://localhost:3000/api/preguntas/mostrarPreguntasHabilitadas/';
+    let urlAsignar = 'https://localhost:3000/api/cuestionarios/asignarPregunta/';
     let opcion = null;
     let respuesta=[];
     const token=sessionStorage.getItem('token');
@@ -20,8 +20,8 @@ $(document).ready(function () {
     document.getElementById("subtitulo").innerHTML=`Título: ${titulo}`;
     let estado="Habilitado";
     
-    let tablaPreguntas=$('#tablaPreguntas').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
-    let tablaCuestionarios=$('#tablaCuestionario').DataTable({'language':{"url": "http://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
+    let tablaPreguntas=$('#tablaPreguntas').DataTable({'language':{"url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
+    let tablaCuestionarios=$('#tablaCuestionario').DataTable({'language':{"url": "https://cdn.datatables.net/plug-ins/1.10.16/i18n/Spanish.json"}});
 
 //MOSTRAR PREGUNTAS EN EL MODAL DE ASIGNAR PREGUNTAS
     function mostrarPreguntas(){
@@ -46,7 +46,7 @@ $(document).ready(function () {
                   sessionStorage.setItem('usuario',null);
                   //el token se elimina
                   sessionStorage.setItem('token',null);
-                window.location.replace('http://localhost:3000/')
+                window.location.replace('https://localhost:3000/')
             })
         }
         
@@ -111,7 +111,7 @@ $(document).ready(function () {
     }
   document.getElementById('btnGuardarRespuesta').onclick=()=>{
       
-      fetch('http://localhost:3000/api/respuestas',{
+      fetch('https://localhost:3000/api/respuestas',{
           method:'post',
           mode:'cors',
           headers:{
@@ -165,7 +165,7 @@ $(document).ready(function () {
             confirmButtonText: `Confirmar`,
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch('http://localhost:3000/api/desasignarPreguntas/',{
+                fetch('https://localhost:3000/api/desasignarPreguntas/',{
                     method:'delete',
                     mode:'cors',
                     headers:{
