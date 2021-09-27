@@ -38,11 +38,12 @@ bower_components
 build/Release
 
 # Dependency directories
-key/
-ssl/
+
 node_modules/
 jspm_packages/
 carpetasOcultas/
+key/
+ssl/
 # TypeScript v1 declaration files
 typings/
 
